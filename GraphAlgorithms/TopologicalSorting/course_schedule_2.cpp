@@ -57,12 +57,12 @@ public:
     {
         // To find the lexicographically smallest ordering use BFS by using a multiset
         vector<int> indegree(n, 0);
-        vector<set<int>> adj(n, set<int>());
+        vector<vector<int>> adj(n, vector<int>());
 
         for (int i = 0; i < p.size(); i++)
         {
             int u = p[i][0], v = p[i][1];
-            adj[u].insert(v);
+            adj[u].push_back(v);
             indegree[v]++;
         }
 
