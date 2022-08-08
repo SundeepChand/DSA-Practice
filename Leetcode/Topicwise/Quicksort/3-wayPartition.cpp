@@ -13,23 +13,25 @@ typedef unsigned long long ull;
 
 void partition(vector<int> &v, int s, int e)
 {
-    int pivot = s;
+    int pivot = v[s];
     int l = s, r = e, cur = s + 1;
     while (cur <= r)
     {
-        if (v[cur] < v[l])
+        if (v[cur] < pivot)
         {
             swap(v[cur], v[l]);
-            l++;
+            cur++, l++;
         }
-        else if (v[cur] > v[l])
+        else if (v[cur] > pivot)
         {
             swap(v[cur], v[r]);
             r--;
-            cur--;
         }
-        cur++;
+        else
+            cur++;
     }
+    swap(v[s], v[l - 1]);
+    // Boundaries of our partition will be (l - 1, r)
 }
 
 int32_t main()
