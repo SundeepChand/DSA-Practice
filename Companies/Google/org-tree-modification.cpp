@@ -22,7 +22,7 @@ public:
     }
 };
 
-class Solution
+class SolutionCopy
 {
 private:
     void solveUtil(Employee *cur, Employee *par)
@@ -68,6 +68,57 @@ public:
     }
 };
 
+class SolutionInPlace
+{
+private:
+    vector<Employee *> solveUtil(vector<Employee *> reportees)
+    {
+        vector<Employee *> newReportees;
+
+        for (auto rep : reportees)
+        {
+            if (rep->isEngineer)
+            {
+                newReportees.push_back(rep);
+                rep->reportees = solveUtil(rep->reportees);
+            }
+            else
+            {
+                vector<Employee *> sub = solveUtil(rep->reportees);
+                newReportees.insert(newReportees.end(), sub.begin(), sub.end());
+            }
+        }
+        return newReportees;
+    }
+
+    void printHierarchyUtil(Employee *root, int depth)
+    {
+        cout << "(" << depth << ", " << root->employeeId << "), ";
+
+        for (auto rep : root->reportees)
+        {
+            printHierarchyUtil(rep, depth + 1);
+        }
+    }
+
+public:
+    Employee *solve(Employee *root)
+    {
+        Employee *clonedRoot = new Employee(root);
+
+        vector<Employee *> modifiedReportees = solveUtil(root->reportees);
+        clonedRoot->reportees = modifiedReportees;
+
+        return clonedRoot;
+    }
+
+    void printHierarchy(Employee *root)
+    {
+        printHierarchyUtil(root, 0);
+        cout << endl;
+    }
+};
+
 int main()
 {
     Employee *org1Head = new Employee("E1", true);
@@ -78,7 +129,8 @@ int main()
     org1Head->reportees[0]->reportees.push_back(new Employee("NE2", false));
     org1Head->reportees[1]->reportees.push_back(new Employee("E5", true));
 
-    Solution s;
+    SolutionCopy s;
+    // SolutionInPlace s;
     Employee *sol1 = s.solve(org1Head);
 
     s.printHierarchy(org1Head);
@@ -97,6 +149,15 @@ int main()
     cout << endl;
 
     s.printHierarchy(sol2);
+    cout << endl;
+
+    Employee *org3Head = new Employee("E1", true);
+    Employee *sol3 = s.solve(org3Head);
+
+    s.printHierarchy(org3Head);
+    cout << endl;
+
+    s.printHierarchy(sol3);
     cout << endl;
 
     return 0;
