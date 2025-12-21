@@ -45,6 +45,14 @@ public:
 };
 
 // ------- Naive Huffman Coding ---------
+// Time complexity
+// n -> number of characters in the charset.
+// Time to build the PQ = O(n * log n)
+// Time to build the tree = O(n * log n)
+// Time to generate the mapping = O(n), a full binary with n leaves can have at max 2n - 1 nodes
+// Total time = O(n * log n)
+
+// Space complexity = O(n)
 class HuffmanEncoderNaive : public HuffmanEncoder
 {
 public:
@@ -181,6 +189,14 @@ public:
 };
 
 // ------- Huffman Coding Solution ---------
+// Time complexity
+// n -> number of characters in the charset.
+// Time to build the PQ = O(n * log n)
+// Time to build the tree, with mapping = O(n2 * log n)
+// Time to reverse the mappings = O(n)
+// Total time = O(n2 * log n)
+
+// Space complexity = O(n)
 class HuffmanEncoderSolution : public HuffmanEncoder
 {
 public:
