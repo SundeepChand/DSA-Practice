@@ -52,6 +52,13 @@ int main()
 
     sort(ipRanges.begin(), ipRanges.end());
 
+    cout << "Ranges:\n";
+    for (auto it : ipRanges)
+    {
+        cout << (it.first) << ", { " << it.second.first << ", " << it.second.second << " }" << endl;
+    }
+    cout << endl;
+
     int q;
     cin >> q;
 
@@ -66,6 +73,7 @@ int main()
         maxStr += char(127);
         auto it = upper_bound(ipRanges.begin(), ipRanges.end(), make_pair(ipCode, make_pair(0, maxStr)));
 
+        cout << ipCode << ": ";
         if (it == ipRanges.end() or it->second.first == 0)
         {
             cout << "NA";
