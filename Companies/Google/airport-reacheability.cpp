@@ -11,7 +11,7 @@ start: NYC
 dest: SFO
 
 Approach:
-Using DFS or BFS keep track of the minimum time to reach an airport, once the dest airport
+Using dijkstra keep track of the minimum time to reach an airport, once the dest airport
 is reached, end the search.
         NYC  LAX  SFO
 times:    0    4    7
@@ -19,7 +19,7 @@ times:    0    4    7
 V = No of airports
 E = No of flights
 
-Time Complexity: O(V + E), Space complexity: O(1)
+Time Complexity: O((V + E) logV), Space complexity: O(1)
 
 */
 class Solution
